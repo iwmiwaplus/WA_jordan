@@ -5,11 +5,17 @@ Created on Fri Apr  5 09:18:47 2019
 @author: bec
 """
 import netCDF4
-import ogr
 import numpy as np
 import glob
 import os
-import gdal
+try:
+    import osr
+    import gdal
+    import ogr
+except:
+    from osgeo import osr
+    from osgeo import gdal
+    from osgeo import ogr
 import datetime
 import itertools
 import csv
@@ -19,7 +25,7 @@ import shutil
 import zipfile
 import calendar
 from dateutil.relativedelta import relativedelta
-import osr
+
 from tqdm import tqdm
 #from find_possible_dates import find_possible_dates
 #from find_possible_dates import find_possible_dates_full
