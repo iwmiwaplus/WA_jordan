@@ -18,7 +18,10 @@ import numpy as np
 import os
 import glob
 import pandas as pd
-import gdal
+try:
+    import gdal
+except:
+    from osgeo import gdal
 import calendar
 from createNC_cmi import make_netcdf
 import netCDF4 as nc
