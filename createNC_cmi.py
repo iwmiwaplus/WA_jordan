@@ -29,8 +29,8 @@ from tqdm import tqdm
 #from find_possible_dates import find_possible_dates
 #from find_possible_dates import find_possible_dates_full
 
-os.environ['PROJ_LIB'] = 'C:\Anaconda3\\envs\\wa_collect_env\\Library\\share\\proj'
-os.environ['GDAL_DATA'] = 'C:\Anaconda3\\envs\\wa_collect_env\\Library\\share'
+# os.environ['PROJ_LIB'] = 'C:\Anaconda3\\envs\\wa_collect_env\\Library\\share\\proj'
+# os.environ['GDAL_DATA'] = 'C:\Anaconda3\\envs\\wa_collect_env\\Library\\share'
 
 def check_projection(old_path):
     
