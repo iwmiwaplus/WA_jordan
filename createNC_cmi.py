@@ -5,17 +5,17 @@ Created on Fri Apr  5 09:18:47 2019
 @author: bec
 """
 import netCDF4
+try:
+    import gdal
+    import ogr
+    import osr
+except:
+    from osgeo import ogr
+    from osgeo import gdal
+    from osgeo import osr
 import numpy as np
 import glob
 import os
-try:
-    import osr
-    import gdal
-    import ogr
-except:
-    from osgeo import osr
-    from osgeo import gdal
-    from osgeo import ogr
 import datetime
 import itertools
 import csv
@@ -25,10 +25,12 @@ import shutil
 import zipfile
 import calendar
 from dateutil.relativedelta import relativedelta
-
 from tqdm import tqdm
 #from find_possible_dates import find_possible_dates
 #from find_possible_dates import find_possible_dates_full
+
+os.environ['PROJ_LIB'] = 'C:\Anaconda3\\envs\\wa_collect_env\\Library\\share\\proj'
+os.environ['GDAL_DATA'] = 'C:\Anaconda3\\envs\\wa_collect_env\\Library\\share'
 
 def check_projection(old_path):
     
@@ -219,6 +221,7 @@ def init_nc(nc_file, dim, var, fill = -9999., attr = None):
     # Add dimensions to nc-file.
     for name, values in dim.items():
         # Create limited dimensions.
+#         print(name)
         if values is not None:
             out_nc.createDimension(name, values.size)
             vals = out_nc.createVariable(name, 'f4', (name,), fill_value = fill)
@@ -234,7 +237,7 @@ def init_nc(nc_file, dim, var, fill = -9999., attr = None):
     for name, props in var.items():
         vals = out_nc.createVariable(props[2]['quantity'], 'f4', props[1], zlib = True, 
                                      fill_value = fill, complevel = 9, 
-                                     least_significant_digit = 3)
+                                     least_significant_digit = 4)
         vals.setncatts(props[2])
 
 
@@ -278,8 +281,8 @@ def get_lats_lons(example, shape):
     assert lats.size == ysize
     assert lons.size == xsize
     
-    print(np.diff(lats)[0] - geot[5])
-    print(np.diff(lons)[0] - geot[1])
+#     print(np.diff(lats)[0] - geot[5])
+#     print(np.diff(lons)[0] - geot[1])
 
     optionsProj = gdal.WarpOptions(
                                outputBounds = (minX, minY, maxX, maxY),
@@ -289,16 +292,24 @@ def get_lats_lons(example, shape):
                                options = ["GDALWARP_IGNORE_BAD_CUTLINE YES"],
                                )
 
+    # optionsClip = gdal.WarpOptions(                               
+    #                             outputBounds = (minX, minY, maxX, maxY),
+    #                             width = xsize,
+    #                             height = ysize,
+    #                             dstNodata = -9999,
+    #                             options = ["GDALWARP_IGNORE_BAD_CUTLINE YES"],
+    #                             )
+    
     optionsClip = gdal.WarpOptions(
-                               cutlineDSName = shape,
-                               cutlineLayer = inLayer.GetName(),
-                               cropToCutline = False,
-                               outputBounds = (minX, minY, maxX, maxY),
-                               width = xsize,
-                               height = ysize,
-                               dstNodata = -9999,
-                               options = ["GDALWARP_IGNORE_BAD_CUTLINE YES"],
-                               )
+                                cutlineDSName = shape,
+                                cutlineLayer = inLayer.GetName(),
+                                cropToCutline = False,
+                                outputBounds = (minX, minY, maxX, maxY),
+                                width = xsize,
+                                height = ysize,
+                                dstNodata = -9999,
+                                options = ["GDALWARP_IGNORE_BAD_CUTLINE YES"],
+                                )
     
     return lats, lons, optionsProj, optionsClip
 
@@ -332,6 +343,8 @@ def fill_nc_one_timestep(nc_file, var, shape, time_val = None):
     out_nc.close()
 
 def make_netcdf(nc_file, dataset, shape, example, name, start=None, end=None):
+    
+    print (f" \n writing {nc_file}")
     
     # Give necessary dimensions in nc-file.
     dims = {'time':  None, 'latitude': None, 'longitude': None}
@@ -425,7 +438,3 @@ def make_netcdf(nc_file, dataset, shape, example, name, start=None, end=None):
 #
 #dy = ds.resample(time='A-MAY').sum(skipna=False).mean(dim=['latitude', 'longitude'])
 #
-
-
-
-
