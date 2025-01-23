@@ -646,101 +646,115 @@ def run_SMBalance(MAIN_FOLDER,nc_files, start_year, end_year,
     #             chunksizes=chunks)
 # # #    comp = dict(zlib=True, complevel=9, least_significant_digit=2)
     start = time.time()
-    print("\n\nwriting the ET_incremental netcdf file\n\n")
+    print("writing the ET_incremental netcdf file")
     etincr_path=os.path.join(MAIN_FOLDER,'etincr_monthly.nc')
     encoding = {"Incremental_ET_M": comp}
     etb.to_netcdf(etincr_path,encoding=encoding)
+    nc_files['ETB'] = etincr_path
     del etb
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     ##green ET 
     start = time.time()
-    print("\n\nwriting the ET_rain netcdf file\n\n")
+    print("writing the ET_rain netcdf file")
     etrain_path=os.path.join(MAIN_FOLDER,'etrain_monthly.nc')
     encoding = {"Rainfall_ET_M": comp}
     etg.to_netcdf(etrain_path,encoding=encoding)
+    nc_files['ETG'] = etrain_path
     del etg
     end = time.time()
-    print('\n',end - start)
-    
-    print("\n\nwriting the SRO netcdf file\n\n")
+    print('     ',end - start)
+
+    start = time.time()
+    print("writing the SRO netcdf file")
     sro_path=os.path.join(MAIN_FOLDER,'sro_monthly.nc')
     encoding = {"SRO_M": comp}
     sro.to_netcdf(sro_path,encoding=encoding)
+    nc_files['SRO'] = sro_path
     del sro
+    end = time.time()
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the percolation netcdf file\n\n")
+    print("writing the percolation netcdf file")
     perco_path=os.path.join(MAIN_FOLDER,'perco_monthly.nc')
     encoding = {"PERC_M": comp}
     perco.to_netcdf(perco_path,encoding=encoding)
+    nc_files['PERC'] = perco_path
     del perco
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the incremental percolation netcdf file\n\n")
+    print("writing the incremental percolation netcdf file")
     dperc_path=os.path.join(MAIN_FOLDER,'d_perco_monthly.nc')
     encoding = {"D_PERC_M": comp}
     dperc.to_netcdf(dperc_path,encoding=encoding)
+    nc_files['DPERC'] = dperc_path
     del dperc
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the supply netcdf file\n\n")
+    print("writing the supply netcdf file")
     supply_path=os.path.join(MAIN_FOLDER,'supply_monthly.nc')
     encoding = {"Supply_M": comp}
     supply.to_netcdf(supply_path,encoding=encoding)
+    nc_files['Supply'] = supply_path
     del supply
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the incremental runoff netcdf file\n\n")
+    print("writing the incremental runoff netcdf file")
     dsro_path=os.path.join(MAIN_FOLDER,'d_sro_monthly.nc')
     encoding = {"Incremental_SRO_M": comp}
     dsro.to_netcdf(dsro_path,encoding=encoding)
+    nc_files['ISRO'] = dsro_path
     del dsro
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the root depth soil moisture netcdf file\n\n")
+    print("writing the root depth soil moisture netcdf file")
     sm_path=os.path.join(MAIN_FOLDER,'sm_monthly.nc')
     encoding = {"Root_Depth_Soil_Moisture_M": comp}
     sm.to_netcdf(sm_path,encoding=encoding)
+    nc_files['RDSM'] = sm_path
     del sm
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the groundwater storage netcdf file\n\n")
+    print("writing the groundwater storage netcdf file")
     gw_path=os.path.join(MAIN_FOLDER,'gw_monthly.nc')
     encoding = {"Groundwater_Storage_M": comp}
     gw.to_netcdf(gw_path,encoding=encoding)
+    nc_files['GW'] = gw_path
     del gw
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the base flow netcdf file\n\n")
+    print("writing the base flow netcdf file")
     bf_path=os.path.join(MAIN_FOLDER,'bf_monthly.nc')
     encoding = {"Base_Flow_M": comp}
     bf.to_netcdf(bf_path,encoding=encoding)
+    nc_files['BF'] = bf_path
     del bf
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
     
     start = time.time()
-    print("\n\nwriting the total flow netcdf file\n\n")
+    print("writing the total flow netcdf file")
     tf_path=os.path.join(MAIN_FOLDER,'tf_monthly.nc')
     encoding = {"Total_Flow_M": comp}
     tf.to_netcdf(tf_path,encoding=encoding)
+    nc_files['TF'] = tf_path
     del tf
     end = time.time()
-    print('\n',end - start)
+    print('     ',end - start)
 
     return nc_files
         
