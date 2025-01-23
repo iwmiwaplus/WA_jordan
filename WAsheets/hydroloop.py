@@ -953,7 +953,9 @@ def calc_land_surface_water_demand(lai_nc, etref_nc, p_nc, lu_nc,
                 least_significant_digit=2, 
                 chunksizes=chunksize)
     demand.to_netcdf(output,
-                     encoding={'land_surface_water_demand':comp})           
+                     encoding={'land_surface_water_demand':comp}) 
+                  
+    print('Save monthly land surface water demand datacube as {0}'.format(output))
     return output
 
 def calc_residential_water_consumption(population_tif,
