@@ -1,5 +1,5 @@
-import calculate_flux as cf
-import hydroloop as hl
+from . import calculate_flux as cf
+from . import hydroloop as hl
 import os
 import pandas as pd
 import time
@@ -175,7 +175,7 @@ def initialize_hydroloop(BASIN):
     out_folder = BASIN['output_folder']
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
-    print("Initialized successfully...)
+    print("Initialized successfully...")
           
 def resample_lu(BASIN): 
     warnings.filterwarnings("ignore")
