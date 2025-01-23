@@ -68,7 +68,7 @@ def create_data_cube(metadata, nc_files,table_data):
         'ts_data':{
                 'q_in_sw':{
                         'basin':q_in_sw,
-                        1:q_in_sw', #unit MCM
+                        1:q_in_sw, #unit MCM
                         2:None,
                         },
                 'q_in_gw':{
