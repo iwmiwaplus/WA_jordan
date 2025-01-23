@@ -145,12 +145,12 @@ def create_data_cube(metadata, nc_files,table_data):
        }
     return BASIN
     
-def collect_tables(inflow,outflow,tatal_water_consumption,treated_waste_water):
+def collect_tables(folder,inflow,outflow,tatal_water_consumption,treated_waste_water):
     table_data = {}
-    table_data['q_in_sw'] = inflow
-    table_data['q_outflow'] = outflow
-    table_data['cw_do'] = tatal_water_consumption
-    table_data['tww'] = treated_waste_water
+    table_data['q_in_sw'] = os.path.join(folder,inflow)
+    table_data['q_outflow'] = os.path.join(folder,outflow)
+    table_data['cw_do'] = os.path.join(folder,tatal_water_consumption)
+    table_data['tww'] = os.path.join(folder,treated_waste_water)
     
     return table_data
 
