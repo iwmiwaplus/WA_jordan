@@ -377,6 +377,8 @@ def run_SMBalance(MAIN_FOLDER,p_in,e_in,i_in,nrd_in,lu_in,smsat_file, aridity, s
 #    SM=SM[0]#         
 #     ari = Ari.isel(time = 0)
     Ari = A[0]
+    print("Reading nc files...")
+    warnings.filterwarnings("ignore")
     
     for j in range(len(LU.time)):
         
@@ -403,10 +405,9 @@ def run_SMBalance(MAIN_FOLDER,p_in,e_in,i_in,nrd_in,lu_in,smsat_file, aridity, s
 # the original code was generating negative soil moisture content over water bodies
 # I am going to change ti so that ET is satified before the runoff is calculated when ET>P
 # only over water bodies
-
             
         for t in range(t1,t2):
-            print('time: ', t)
+            # print('time: ', t)
             SMt_1=SM.copy()
             GWt_1 = GW.copy()
 #            SMt_1 = SM
