@@ -157,7 +157,8 @@ def collect_tables(folder,inflow,outflow,tatal_water_consumption,treated_waste_w
 def create_metadata(basin_name,hydro_year,output_folder,basin_mask,dem,aeisw,population,wpl,environ_water_req,unit_conversion = 1e3,chunksize = [1, 300,300]):
     
     metadata = {}
-    
+
+    metadata['name'] = basin_name
     metadata['hydro_year'] = hydro_year
     metadata['chunksize'] = chunksize 
     metadata['unit_conversion'] = unit_conversion
@@ -171,11 +172,14 @@ def create_metadata(basin_name,hydro_year,output_folder,basin_mask,dem,aeisw,pop
     
     return metadata
 
-def initialize_hydroloop(BASIN):
-    out_folder = BASIN['output_folder']
+def initialize_hydroloop(metadata, nc_files,table_data):
+    out_folder = metadata['result_folder']
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
+    BASIN = self.create_data_cube(metadata, nc_files,table_data)
     print("Initialized successfully...")
+
+    return BASIN
           
 def resample_lu(BASIN): 
     warnings.filterwarnings("ignore")
