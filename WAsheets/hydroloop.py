@@ -793,7 +793,7 @@ def calc_sw_supply_fraction_by_LU(lu_nc,aeisw_tif,
     for key in list(fractions.keys()):
         classes = lucs[key]
         fraction = fractions[key]
-        print('{0} {1} {2}'.format(key,classes,fraction))
+        # print('{0} {1} {2}'.format(key,classes,fraction))
         sw_supply_fraction = xr.where(
                 LU.isin(classes),fraction,sw_supply_fraction)        
     # update fraction with aeisw (GMIA)
