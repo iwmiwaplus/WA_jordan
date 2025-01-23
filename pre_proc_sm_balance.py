@@ -47,13 +47,17 @@ def rainy_days(dailyp_nc, monthlyp_nc):
     
     p, _ = open_nc(dailyp_nc)
     p_m, _ = open_nc(monthlyp_nc)
-    pzeros = p * 0
-    p = p.resample(time='1M').sum()
-    pbinary = pzeros.where(p==0, 1)
-    # nrainy = pbinary.resample(time='1M', label='left',loffset='D').sum()
-    nrainy = pbinary.sum(dim='time') #Remove resample since p is already monthly
-    p_one = nrainy*0+1
-    nrainy_correct = p_one.where((nrainy==0)&(p_m>0),nrainy)
+    
+    # Create a binary array indicating rainy days (1) and non-rainy days (0)
+    pbinary = xr.where(p > 0, 1, 0)  # Consider any precipitation above 0 as a rainy day
+    
+    # Resample the binary array to monthly frequency and sum to get the number of rainy days per month
+    nrainy = pbinary.resample(time='1M').sum(dim='time', skipna=False)
+
+    # Ensure the time coordinates of 'nrainy' and 'p_monthly' match
+    nrainy = nrainy.reindex(time = p_m.time, method = 'nearest')  # or method='ffill', 'bfill', etc. as needed
+    p_one = p_m * 0 + 1
+    nrainy_correct = p_one.where((nrainy == 0) & (p_m>0),nrainy)
    
     ### Write netCDF files
     root_f = os.path.dirname(dailyp_nc)
