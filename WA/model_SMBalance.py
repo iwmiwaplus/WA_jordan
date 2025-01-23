@@ -309,9 +309,17 @@ def OpenAsArray(fh, bandnumber = 1, dtype = 'float32', nan_values = False):
     return Array
 
 #%% main
-def run_SMBalance(MAIN_FOLDER,p_in,e_in,i_in,nrd_in,lu_in,smsat_file, aridity, start_year, end_year, 
+def run_SMBalance(MAIN_FOLDER,nc_files, start_year, end_year, 
         f_perc=1,f_Smax=0.9, cf =  20, f_bf = 0.1, deep_perc_f = 0.1, root_depth_version = '1.0',
          chunks=[1,1000,1000]):
+
+    p_in = nc_files['P'] # Monthly Precipitation
+    e_in = nc_files['ET'] # Monthly Actual Evapotranspiration
+    i_in = nc_files['I'] # Monthly Interception
+    nrd_in = nc_files['NRD'] # Monthly Number of Rainy days
+    lu_in = nc_files['LU'] # Yearly WaPOR Land Cover Map
+    smsat_file = nc_files['SMsat']#Saturated Water Content (%)
+    aridity = nc_files['Ari'] # Aridity index to identify desert areas where et should eqaul to p
     '''
     Arguments:
         
@@ -733,5 +741,7 @@ def run_SMBalance(MAIN_FOLDER,p_in,e_in,i_in,nrd_in,lu_in,smsat_file, aridity, s
     del tf
     end = time.time()
     print('\n',end - start)
+
+    return nc_files
         
         
