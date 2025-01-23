@@ -33,7 +33,7 @@ import warnings
 def open_nc(nc_file, chunksize="auto"):
     dts=xr.open_dataset(nc_file)
     key=list(dts.keys())[0]
-    print(key)
+    # print(key)
     var=dts[key].chunk({"time": 1, "latitude": chunksize, "longitude": chunksize}) #.ffill("time")
     return var,key
 
@@ -41,7 +41,7 @@ def open_nc(nc_file, chunksize="auto"):
 def open_nct(nc_file):
     dts=xr.open_dataset(nc_file)
     key=list(dts.keys())[0]
-    print(key)
+    # print(key)
     var=dts[key].chunk({"time": 100, "latitude": 100, "longitude": 100}) #.ffill("time")
     return var,key
 
