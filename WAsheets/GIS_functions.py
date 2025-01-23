@@ -5,10 +5,15 @@ Created on Tue Jul 30 14:16:35 2019
 @author: Bert Coerver
 """
 import numpy as np
-import gdal
-import osr
 import os
-import ogr
+try:
+    import gdal
+    import osr
+    import ogr
+except:
+    from osgeo import gdal
+    from osgeo import osr
+    from osgeo import ogr
 from geopy.distance import geodesic
 
 def GetGeoInfo(fh, subdataset = 0):
