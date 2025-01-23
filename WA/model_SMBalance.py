@@ -6,7 +6,10 @@ Created on Fri Oct 18 08:22:17 2019
 """
 import os
 import numpy as np
-import gdal
+try:
+    import gdal
+except:
+    from osgeo import gdal
 import xarray as xr
 #import glob
 #import datetime
