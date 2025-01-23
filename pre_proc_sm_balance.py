@@ -49,7 +49,8 @@ def rainy_days(dailyp_nc, monthlyp_nc):
     p_m, _ = open_nc(monthlyp_nc)
     pzeros = p * 0
     pbinary = pzeros.where(p==0, 1)
-    nrainy = pbinary.resample(time='1M', label='left',loffset='D').sum()
+    # nrainy = pbinary.resample(time='1M', label='left',loffset='D').sum()
+    nrainy = pbinary.resample(time='1M', label='left', loffset='D').sum(dim='time')
     # correction for when nrainy=0 & pmonthly>0 --> nrainy=1
     p_one = nrainy*0+1
     nrainy_correct = p_one.where((nrainy==0)&(p_m>0),nrainy)
