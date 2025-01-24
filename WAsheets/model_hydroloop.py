@@ -190,13 +190,13 @@ def resample_lu(BASIN):
                                     start_month=0,
                                     output=None,
                                     chunksize=BASIN['chunksize'])
+     ## check this one again
+    BASIN['data_cube']['monthly']['lu']=monthly_nc
     return BASIN
     
     
 def split_et(BASIN):
     warnings.filterwarnings("ignore")
-    ## check this one again
-    BASIN['data_cube']['monthly']['lu']=monthly_nc
     ### Split ETI
     e_nc,i_nc,t_nc=hl.split_ETI(et_nc=BASIN['data_cube']['monthly']['et'],
                                 i_nc=BASIN['data_cube']['monthly']['i'],
@@ -223,6 +223,8 @@ def split_supply(BASIN):
 
     sw_supply_nc,gw_supply_nc=hl.split_flow(BASIN['data_cube']['monthly']['supply'],
                   fraction_nc=sw_supply_fraction_nc, chunksize=BASIN['chunksize'])
+
+    # BASIN['data_cube']['monthly']['']=monthly_nc
           
     return BASIN
     
