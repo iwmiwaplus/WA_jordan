@@ -239,6 +239,7 @@ def calc_demand(BASIN):
                                       BASIN['data_cube']['monthly']['p'],
                                       BASIN['data_cube']['monthly']['lu'],
                                       chunksize=BASIN['chunksize']) 
+    BASIN['data_cube']['monthly']['demand'] = demand_nc
     return BASIN
 
 def calc_return(BASIN):
