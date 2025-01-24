@@ -432,7 +432,7 @@ def calc_time_series(BASIN):
                                             q_out_sw = q_out_sw,
                                             output=output,
                                             outflow=True, #not endorheic basin
-                                            plot=True
+                                            plot=False
                                             )
         BASIN['ts_data']['q_outflow'][sb]=discharge
         BASIN['ts_data']['dS_sw'][sb]=dS_sw    
