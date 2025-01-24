@@ -253,6 +253,8 @@ def calc_return(BASIN):
             BASIN['data_cube']['monthly']['sroincr'],
             BASIN['data_cube']['monthly']['percincr'])
     sw_return_nc,gw_return_nc=hl.split_flow(return_nc,fraction_nc=sw_return_fraction_nc, chunksize=BASIN['chunksize'])
+
+    BASIN['data_cube']['monthly']['sw_return']=sw_return_nc
           
     return BASIN
           
@@ -283,10 +285,11 @@ def cal_total_supply(BASIN):
     ### split return flow by source sw/gw
 
     sw_supply_fraction_nc = BASIN['data_cube']['monthly']['sw_supply_fraction']
-    return_sw_from_sw_nc,return_sw_from_gw_nc=hl.split_flow(
-            sw_return_nc,fraction_nc=sw_supply_fraction_nc, chunksize=BASIN['chunksize'])
-    return_gw_from_sw_nc,return_gw_from_gw_nc=hl.split_flow(
-            gw_return_nc,fraction_nc=sw_supply_fraction_nc, chunksize=BASIN['chunksize'])
+    sw_return_nc = BASIN['data_cube']['monthly']['sw_return']
+    return_sw_from_sw_nc,return_sw_from_gw_nc = hl.split_flow(
+            sw_return_nc,fraction_nc = sw_supply_fraction_nc, chunksize=BASIN['chunksize'])
+    return_gw_from_sw_nc,return_gw_from_gw_nc = hl.split_flow(
+            gw_return_nc,fraction_nc = sw_supply_fraction_nc, chunksize=BASIN['chunksize'])
 
     ### split residential supply by sw/gw fraction
     f=BASIN['params']['residential_sw_supply_fraction']
