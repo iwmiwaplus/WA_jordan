@@ -176,7 +176,7 @@ def initialize_hydroloop(metadata, nc_files,table_data):
     out_folder = metadata['result_folder']
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
-    BASIN = self.create_data_cube(metadata, nc_files,table_data)
+    BASIN = create_data_cube(metadata, nc_files,table_data)
     print("Initialized successfully...")
 
     return BASIN
