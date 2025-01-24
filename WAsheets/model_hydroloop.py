@@ -286,7 +286,7 @@ def calc_residential_supply(BASIN):
           
     return BASIN
           
-def cal_total_supply(BASIN):
+def calc_total_supply(BASIN):
     warnings.filterwarnings("ignore")
     ### split return flow by source sw/gw
 
