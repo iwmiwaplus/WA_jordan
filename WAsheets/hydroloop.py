@@ -334,7 +334,7 @@ def linear_fractions(lu_fh, upstream_fh, proxy_fh, xs, unit='km',
                      quantity='Distance to water', gw_only_classes=None,
                      plot_graph=True):
 
-    upstream = upstream_fh.astype(np.bool)
+    upstream = upstream_fh.astype(bool)
     distances = np.array(proxy_fh)
     f1 = interpolate.interp1d([xs[0], xs[1]], [1, 0], kind='linear',
                               bounds_error=False, fill_value=(1, 0))
