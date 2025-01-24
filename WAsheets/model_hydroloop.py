@@ -298,6 +298,7 @@ def calc_total_supply(BASIN):
     residential_demand_nc = BASIN['data_cube']['monthly']['residential_demand']
     sw_supply_nc = BASIN['data_cube']['monthly']['sw_supply']
     gw_supply_nc = BASIN['data_cube']['monthly']['gw_supply']
+    demand_nc = BASIN['data_cube']['monthly']['demand']
  
     return_sw_from_sw_nc,return_sw_from_gw_nc = hl.split_flow(
             sw_return_nc,fraction_nc = sw_supply_fraction_nc, chunksize=BASIN['chunksize'])
