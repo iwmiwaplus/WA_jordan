@@ -255,6 +255,7 @@ def calc_return(BASIN):
     sw_return_nc,gw_return_nc=hl.split_flow(return_nc,fraction_nc=sw_return_fraction_nc, chunksize=BASIN['chunksize'])
 
     BASIN['data_cube']['monthly']['sw_return']=sw_return_nc
+    BASIN['data_cube']['monthly']['gw_return']=gw_return_nc
           
     return BASIN
           
@@ -286,6 +287,8 @@ def cal_total_supply(BASIN):
 
     sw_supply_fraction_nc = BASIN['data_cube']['monthly']['sw_supply_fraction']
     sw_return_nc = BASIN['data_cube']['monthly']['sw_return']
+    gw_return_nc = BASIN['data_cube']['monthly']['gw_return']
+ 
     return_sw_from_sw_nc,return_sw_from_gw_nc = hl.split_flow(
             sw_return_nc,fraction_nc = sw_supply_fraction_nc, chunksize=BASIN['chunksize'])
     return_gw_from_sw_nc,return_gw_from_gw_nc = hl.split_flow(
